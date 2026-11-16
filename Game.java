@@ -58,6 +58,11 @@ public class Game
         office.setExit("west", lab);
 
         currentRoom = outside;  // start game outside
+        
+        Item cola = new Item("A can of cola", 1);
+        
+        
+        
     }
 
     /**
@@ -118,6 +123,10 @@ public class Game
             case QUIT:
                 wantToQuit = quit(command);
                 break;
+                
+            case LOOK:
+                look();
+                break;
         }
         return wantToQuit;
     }
@@ -136,6 +145,16 @@ public class Game
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
+    }
+    
+    
+    /**
+     * Prints out a long description of the current room
+     * 
+     */
+    private void look()
+    {
+        System.out.println(currentRoom.getLongDescription());
     }
 
     /** 
