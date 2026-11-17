@@ -20,8 +20,8 @@ import java.util.Stack;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
     private Stack<Room> moveHistory;
+    private Player player;
         
     /**
      * Create the game and initialise its internal map.
@@ -61,11 +61,12 @@ public class Game
 
         office.setExit("west", lab);
 
-        currentRoom = outside;  // start game outside
+        player = new Player(outside); // start game outside
         
-        Item cola = new Item("a can of cola", 1);
-        Item pizza = new Item("a slice of pizza", 1);
-        Item beer = new Item("a bottle of beer", 2);
+        Item cola = new Item("cola", "a can of cola", 1);
+        Item pizza = new Item("pizza","a slice of pizza", 1);
+        Item beer = new Item("beer","a bottle of beer", 2);
+        Item tungCube = new Item("tungsten cube","a dense tungsten cube", 100, false);
         outside.addItem(cola);
         outside.addItem(pizza);
         outside.addItem(beer);
@@ -102,7 +103,7 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(player.getCurrentRoom().getLongDescription());
     }
 
     /**
@@ -168,7 +169,7 @@ public class Game
      */
     private void look()
     {
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(player.getCurrentRoom().getLongDescription());
     }
     
     
@@ -182,8 +183,8 @@ public class Game
         if (moveHistory.empty()){
             System.out.println("There are no more rooms to back up to!");
         } else {
-            currentRoom = moveHistory.pop();
-            System.out.println(currentRoom.getLongDescription());
+            player.setCurrentRoom(moveHistory.pop());
+            System.out.println(player.getCurrentRoom().getLongDescription());
         }
         
     }
@@ -203,15 +204,15 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
+        Room nextRoom = player.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
-            moveHistory.push(currentRoom);
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+            moveHistory.push(player.getCurrentRoom());
+            player.setCurrentRoom(nextRoom);
+            System.out.println(player.getCurrentRoom().getLongDescription());
         }
         
     }

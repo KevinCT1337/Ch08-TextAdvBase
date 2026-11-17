@@ -10,16 +10,38 @@
  */
 public class Item
 {
-    private String itemDescription;
-    private int itemWeight;
+    private String description;
+    private int weight;
+    private String name;
+    private boolean canBePickedUp;
+    private static final boolean DEFAULT_PICKABLE_STATE = true;
 
+    
+    public Item(String initialName, String initialDesc, int initialWeight)
+    {
+        this(initialName,initialDesc,initialWeight, DEFAULT_PICKABLE_STATE);
+    }
+    
+    
     /**
      * Constructor for objects of class Item
      */
-    public Item(String initialDesc, int initialWeight)
+    public Item(String initialName, String initialDesc, int initialWeight, boolean pickableState)
     {
-        itemDescription = initialDesc;
-        itemWeight = initialWeight;
+        description = initialDesc;
+        weight = initialWeight;
+        name = initialName;
+        canBePickedUp = pickableState;
+    }
+    
+    /**
+     * Gets the stored name of the item
+     * 
+     * @return Name of the item
+     */
+    public String getName()
+    {
+        return name;
     }
     
     /**
@@ -29,7 +51,7 @@ public class Item
      */
     public String getDescription()
     {
-        return itemDescription;
+        return description;
     }
     
     
@@ -40,6 +62,6 @@ public class Item
      */
     public int getWeight()
     {
-        return itemWeight;
+        return weight;
     }
 }
