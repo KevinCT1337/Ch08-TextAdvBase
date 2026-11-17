@@ -36,12 +36,21 @@ public class Room
         items = new ArrayList<Item>();
     }
     
-    
+    /**
+     * Method to let you add a new item to this room
+     * 
+     * @param itemToAdd The item to add to this room
+     */
     public void addItem(Item itemToAdd)
     {
         items.add(itemToAdd);
     }
     
+    /**
+     * Returns a full description of each item currently contained in the room via a loop.
+     * 
+     * @return The description of the items in the room
+     */
     public String getItemsDescription()
     {
         String desc = "In this room there is: ";
@@ -59,9 +68,6 @@ public class Room
         } else {
             desc = desc + "nothing";
         }
-        
-        
-        
         
         return desc;
     }
