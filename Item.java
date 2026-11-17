@@ -35,6 +35,17 @@ public class Item
     }
     
     /**
+     * Gets the state of the item if it's able to be picked up by a player
+     * 
+     * @return The state of the item being able to be picked up, true is yes, false is no
+     */
+    public boolean getPickableState()
+    {
+        return canBePickedUp;
+    }
+    
+    
+    /**
      * Gets the stored name of the item
      * 
      * @return Name of the item

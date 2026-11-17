@@ -66,12 +66,13 @@ public class Game
         Item cola = new Item("cola", "a can of cola", 1);
         Item pizza = new Item("pizza","a slice of pizza", 1);
         Item beer = new Item("beer","a bottle of beer", 2);
-        Item tungCube = new Item("tungsten cube","a dense tungsten cube", 100, false);
+        Item ps4 = new Item("ps4","a PS4 console", 8);
+        Item tungCube = new Item("cube","a dense tungsten cube", 100, false);
         outside.addItem(cola);
         outside.addItem(pizza);
         outside.addItem(beer);
-        
-        
+        outside.addItem(tungCube);
+        outside.addItem(ps4);
         
     }
 
@@ -140,6 +141,14 @@ public class Game
                 
             case BACK:
                 goBack();
+                break;
+                
+            case TAKE:
+                player.pickUpItem(command);
+                break;
+            
+            case DROP:
+                player.dropItem(command);
                 break;
                 
         }

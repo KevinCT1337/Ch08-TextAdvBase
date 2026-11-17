@@ -46,6 +46,32 @@ public class Room
         items.add(itemToAdd);
     }
     
+    public ArrayList<Item> getItemsInRoom()
+    {
+        return items;
+    }
+    
+    public void removeItem(Item itemToRemove)
+    {
+        Iterator<Item> iterator = items.iterator();
+        
+        if (!iterator.hasNext())
+        {
+            return;
+        }
+        
+        while (iterator.hasNext())
+        {
+            Item item = iterator.next();
+            //System.out.println(item.getName());
+            if (item == itemToRemove)
+            {
+                //System.out.println("Removing: " + item.getName());
+                iterator.remove();
+            }
+        }
+    }
+    
     /**
      * Returns a full description of each item currently contained in the room via a loop.
      * 
