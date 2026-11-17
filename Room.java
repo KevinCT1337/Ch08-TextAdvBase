@@ -33,14 +33,38 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<>();
+        items = new ArrayList<Item>();
     }
     
     
-    public void addItem()
+    public void addItem(Item itemToAdd)
     {
-        
+        items.add(itemToAdd);
     }
     
+    public String getItemsDescription()
+    {
+        String desc = "In this room there is: ";
+        
+        Iterator<Item> iterator = items.iterator();
+        
+        if (iterator.hasNext()){
+            while (iterator.hasNext()) {
+                Item item = iterator.next();
+                desc = desc + item.getDescription() + " (W: " + item.getWeight() + ")";
+                if (iterator.hasNext()) {
+                    desc = desc + ", ";
+                }
+            }
+        } else {
+            desc = desc + "nothing";
+        }
+        
+        
+        
+        
+        return desc;
+    }
     
     /**
      * Define an exit from this room.
@@ -69,7 +93,7 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        return "You are " + description + ".\n" + getItemsDescription() + ".\n" + getExitString();
     }
 
     /**

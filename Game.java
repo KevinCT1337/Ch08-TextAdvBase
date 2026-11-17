@@ -59,7 +59,12 @@ public class Game
 
         currentRoom = outside;  // start game outside
         
-        Item cola = new Item("A can of cola", 1);
+        Item cola = new Item("a can of cola", 1);
+        Item pizza = new Item("a slice of pizza", 1);
+        Item beer = new Item("a bottle of beer", 2);
+        outside.addItem(cola);
+        outside.addItem(pizza);
+        outside.addItem(beer);
         
         
         
