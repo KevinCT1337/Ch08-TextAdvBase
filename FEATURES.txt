@@ -1,0 +1,8 @@
+Elements implemented for a level:
+
+Rooms: outside, theater, pub, lab, office, cafeteria, catwalk, library
+Items: cola, pizza, beer, plank, ps4, card, machine, cube, cookie
+
+Elements implemented for extra credit:
+
+Eat method in Player class, eat Enum, eat switch case in Game, magic cookie item placed in cafeteria
