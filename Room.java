@@ -14,7 +14,8 @@ import java.util.ArrayList;
  * stores a reference to the neighboring room.
  * 
  * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author Kevin Cox-Torrelio
+ * @version 2026-11-17
  */
 
 public class Room 
@@ -46,11 +47,21 @@ public class Room
         items.add(itemToAdd);
     }
     
+    /**
+     * Getter method to get the list containing all the items stored in a room
+     * 
+     * @return The list containing stored items
+     */
     public ArrayList<Item> getItemsInRoom()
     {
         return items;
     }
     
+    /**
+     * Mutator method that takes in the item object to remove from the room's list of stored items
+     * 
+     * @param itemToRemove The item to remove from the room
+     */
     public void removeItem(Item itemToRemove)
     {
         Iterator<Item> iterator = items.iterator();
@@ -79,7 +90,7 @@ public class Room
      */
     public String getItemsDescription()
     {
-        String desc = "In this room there is: ";
+        String desc = "In this area there is: ";
         
         Iterator<Item> iterator = items.iterator();
         

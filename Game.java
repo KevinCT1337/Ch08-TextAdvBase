@@ -14,7 +14,8 @@ import java.util.Stack;
  *  executes the commands that the parser returns.
  * 
  * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author Kevin Cox-Torrelio
+ * @version 2026-11-17
  */
 
 public class Game 
@@ -38,7 +39,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room outside, theater, pub, lab, office, cafeteria, catwalk, library;
       
         // create the rooms
         outside = new Room("outside the main entrance of the university");
@@ -46,33 +47,56 @@ public class Game
         pub = new Room("in the campus pub");
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
+        cafeteria = new Room("in the campus cafeteria");
+        catwalk = new Room("on the catwalk over the campus");
+        library = new Room("in the campus library");
         
         // initialise room exits
         outside.setExit("east", theater);
         outside.setExit("south", lab);
         outside.setExit("west", pub);
+        outside.setExit("north", catwalk);
 
         theater.setExit("west", outside);
 
         pub.setExit("east", outside);
+        pub.setExit("north", cafeteria);
 
         lab.setExit("north", outside);
         lab.setExit("east", office);
 
         office.setExit("west", lab);
+        
+        cafeteria.setExit("east", catwalk);
+        cafeteria.setExit("south", pub);
+        
+        catwalk.setExit("south", outside);
+        catwalk.setExit("west", cafeteria);
+        catwalk.setExit("east", library);
+        
+        library.setExit("west", catwalk);
 
         player = new Player(outside); // start game outside
         
         Item cola = new Item("cola", "a can of cola", 1);
         Item pizza = new Item("pizza","a slice of pizza", 1);
         Item beer = new Item("beer","a bottle of beer", 2);
-        Item ps4 = new Item("ps4","a PS4 console", 8);
+        Item plank = new Item("plank","a plank of wood", 4);
+        Item ps4 = new Item("ps4","a PS4 console", 6);
+        Item idCard = new Item("card","an ID card", 1);
+        Item vendingMachine = new Item("machine","a vending machine", 50, false);
         Item tungCube = new Item("cube","a dense tungsten cube", 100, false);
-        outside.addItem(cola);
-        outside.addItem(pizza);
-        outside.addItem(beer);
-        outside.addItem(tungCube);
-        outside.addItem(ps4);
+        Item magicCookie = new Item("cookie","a magic cookie", 1);
+        
+        outside.addItem(idCard);
+        cafeteria.addItem(cola);
+        pub.addItem(pizza);
+        pub.addItem(beer);
+        lab.addItem(tungCube);
+        library.addItem(vendingMachine);
+        catwalk.addItem(plank);
+        office.addItem(ps4);
+        cafeteria.addItem(magicCookie);
         
     }
 
@@ -153,6 +177,10 @@ public class Game
                 
             case ITEMS:
                 player.printInventory();
+                break;
+                
+            case EAT:
+                player.eatItem(command);
                 break;
                 
         }

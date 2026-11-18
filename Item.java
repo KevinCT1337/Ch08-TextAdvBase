@@ -1,7 +1,5 @@
 
 /**
- * Item Class
- * 
  * This class handles the creation of items the player can interact with and
  * can be stored in rooms. Includes the description and weight of the item
  *
@@ -16,7 +14,13 @@ public class Item
     private boolean canBePickedUp;
     private static final boolean DEFAULT_PICKABLE_STATE = true;
 
-    
+    /**
+     * Construtor for Item class if no pickable state is defined
+     * 
+     * @param initialName The name to set the item to
+     * @param initialDesc The description to set the item to
+     * @param initialWeight The weight to set the item to
+     */
     public Item(String initialName, String initialDesc, int initialWeight)
     {
         this(initialName,initialDesc,initialWeight, DEFAULT_PICKABLE_STATE);
@@ -24,7 +28,12 @@ public class Item
     
     
     /**
-     * Constructor for objects of class Item
+     * Constructor for objects of the Item class
+     * 
+     * @param initialName The name to set the item to
+     * @param initialDesc The description to set the item to
+     * @param initialWeight The weight to set the item to
+     * @param pickableState The initial state to set the item to on whether it can be picked up or not
      */
     public Item(String initialName, String initialDesc, int initialWeight, boolean pickableState)
     {

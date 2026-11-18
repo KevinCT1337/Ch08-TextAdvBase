@@ -1,23 +1,29 @@
 import java.util.Set;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ArrayList;
 /**
- * Write a description of class Player here.
+ * This class handles player specific actions such as picking and dropping items, eating items,
+ * methods to deal with the room the player is in, and dealing with the player's inventory.
  *
  * @author Kevin Cox-Torrelio
  * @version 11-17-2026
  */
 public class Player
 {
+    private static final int DEFAULT_MAX_WEIGHT = 10;
+    private static final int MAGIC_COOKIE_WT_INCREMENT_BY = 5;
     
     private ArrayList<Item> inventory;
-    private static final int DEFAULT_MAX_WEIGHT = 10;
+    
     private int maxWeightCapacity;
     
     private Room currentRoom;
     
-    
+    /**
+     * Construtor for objects of the Player class
+     * 
+     * @param startingRoom The initial room the player starts in
+     */
     public Player(Room startingRoom)
     {
         maxWeightCapacity = DEFAULT_MAX_WEIGHT;
@@ -25,18 +31,29 @@ public class Player
         inventory = new ArrayList<Item>();
     }
     
-    
+    /**
+     * Getter method that gets the current room the player is in
+     * 
+     */
     public Room getCurrentRoom()
     {
         return currentRoom;
     }
     
-    
+    /**
+     * Setter method to set the new room the player moved to
+     * 
+     */
     public void setCurrentRoom(Room newRoom)
     {
         currentRoom = newRoom;
     }
     
+    /**
+     * Getter method that returns the total weight of all items the player is carrying
+     * 
+     * @return The total weight of items carried
+     */
     private int getCurrentWeight()
     {
         int totalWeight = 0;
@@ -53,6 +70,11 @@ public class Player
         return totalWeight;
     }
     
+    
+    /**
+     * Neatly prints out the inventory of the player, their total weight and max weight
+     * 
+     */
     public void printInventory()
     {
         String desc = "Your inventory: ";
@@ -79,9 +101,58 @@ public class Player
     
     
     /**
-     * Method to have the player pick up the specified item
+     * Method that has the player eat an item from the command being ran
      * 
+     * @param command The command the player initially ran to process on
+     */
+    public void eatItem(Command command)
+    {
+        if(!command.hasSecondWord()) {
+            System.out.println("Eat what?");
+            return;
+        }
+        
+        String itemName = command.getSecondWord().toLowerCase();
+        Iterator<Item> iterator = inventory.iterator();
+        
+        if (!iterator.hasNext())
+        {
+            System.out.println("There is nothing to eat in your inventory.");
+            return;
+        }
+        
+        Item itemFound = null;
+        
+        while (iterator.hasNext())
+        {
+            Item item = iterator.next();
+            
+            // If the names are the same
+            if (item.getName().toLowerCase().equals(itemName)) 
+            {
+                itemFound = item;
+                break;
+            }
+        }
+        
+        if (itemFound != null)
+        {
+            if (itemFound.getName().equals("cookie"))
+            {
+                maxWeightCapacity += MAGIC_COOKIE_WT_INCREMENT_BY;
+                System.out.println("Wow, that magic cookie increased your max capacity by: " + MAGIC_COOKIE_WT_INCREMENT_BY);
+            }
+        } else {
+            System.out.println("You don't have a " + itemFound + " to eat.");            
+        }
+        
+        
+    }
+    
+    /**
+     * Method to have the player pick up a specified item from the command being ran
      * 
+     * @param command The command the player initially ran to process on
      */
     public void pickUpItem(Command command)
     {
@@ -139,8 +210,9 @@ public class Player
     
     
     /**
-     * Method to have the player drop the specified item
+     * Method to have the player drop a specified item from the command being ran
      * 
+     * @param command The command the player initially ran to process on
      */
     public void dropItem(Command command)
     {
