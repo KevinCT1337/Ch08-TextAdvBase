@@ -53,6 +53,30 @@ public class Player
         return totalWeight;
     }
     
+    public void printInventory()
+    {
+        String desc = "Your inventory: ";
+        
+        Iterator<Item> iterator = inventory.iterator();
+        
+        if (iterator.hasNext()){
+            while (iterator.hasNext()) {
+                Item item = iterator.next();
+                desc = desc + item.getDescription() + " (W: " + item.getWeight() + ")";
+                if (iterator.hasNext()) {
+                    desc = desc + ", ";
+                }
+            }
+        } else {
+            desc = desc + "nothing";
+        }
+        
+        desc += "\nTotal Weight: " + getCurrentWeight() + "\nMaximum Weight Cap: " + maxWeightCapacity;
+        
+        System.out.println(desc);
+    }
+    
+    
     
     /**
      * Method to have the player pick up the specified item
@@ -98,8 +122,7 @@ public class Player
                 System.out.println("The " + itemName + " is impossible to pick up...");
                 return;
             } 
-            System.out.println(getCurrentWeight());
-            System.out.println(getCurrentWeight() + itemFound.getWeight());
+            
             if (getCurrentWeight() + itemFound.getWeight() > maxWeightCapacity) {
                 System.out.println("You're carrying too much weight to pick up that " + itemFound.getName());
             } else {

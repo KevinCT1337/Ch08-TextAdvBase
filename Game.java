@@ -151,6 +151,10 @@ public class Game
                 player.dropItem(command);
                 break;
                 
+            case ITEMS:
+                player.printInventory();
+                break;
+                
         }
         return wantToQuit;
     }
